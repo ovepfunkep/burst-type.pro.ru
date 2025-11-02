@@ -1,5 +1,4 @@
-import {captureEvent, createWord, type State} from '../state';
-import en1000 from '../../wordlists/en1000.json';
+import {captureEvent, createWord, getWordlist, type State} from '../state';
 
 type SetBufferAction = {
 	type: 'SET_BUFFER';
@@ -55,8 +54,9 @@ const setBuffer = (state: State, action: SetBufferAction): State => {
 		const streak = hitTargetWPM ? state.word.streak + 1 : 0;
 
 		if (streak >= state.targetStreak) {
+			const wordlist = getWordlist(state);
 			// eslint-disable-next-line max-depth
-			if (state.level + 1 === (state.customWordlist ?? en1000).length) {
+			if (state.level + 1 === wordlist.length) {
 				return {
 					...state,
 					...captureEvent('gameComplete'),
@@ -71,7 +71,7 @@ const setBuffer = (state: State, action: SetBufferAction): State => {
 				...captureEvent('streakComplete'),
 				level: state.level + 1,
 				highestLevel: Math.max(state.highestLevel ?? 0, state.level + 1),
-				word: createWord(state.customWordlist ?? en1000, state.level + 1),
+				word: createWord(wordlist, state.level + 1),
 				buffer: '',
 				lastSave: Date.now(),
 				lastWPM: wpm,
@@ -124,7 +124,8 @@ const setBuffer = (state: State, action: SetBufferAction): State => {
 	}
 
 	const nextBuffer = action.payload;
-	const repeatWord = createWord(state.customWordlist ?? en1000, state.level);
+	const wordlist = getWordlist(state);
+	const repeatWord = createWord(wordlist, state.level);
 
 	if (state.word.streak < state.targetStreak) {
 		return {

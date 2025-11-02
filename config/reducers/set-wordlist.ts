@@ -13,6 +13,7 @@ const setWordlist = (state: State, action: SetWordlistAction): State => ({
 	targetWPM: state.targetWPM,
 	targetStreak: state.targetStreak,
 	darkMode: state.darkMode,
+	language: state.language,
 	customWordlist: action.payload,
 	lastSave: Date.now(),
 	showInstructions: false,

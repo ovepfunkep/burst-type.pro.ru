@@ -4,7 +4,9 @@ import en1000 from '../../wordlists/en1000.json';
 import en1000bylength from '../../wordlists/en1000bylength.json';
 import endbl from '../../wordlists/endbl.json';
 import rickroll from '../../wordlists/rickroll.json';
+import ru1000 from '../../wordlists/ru1000.json';
 import MenuButton from '../menu-button';
+import {useTranslations} from '@app/hooks/use-translations';
 
 type WordlistMenuProperties = {
 	onClose: () => void;
@@ -15,16 +17,27 @@ type WordlistPreset = {
 	wordlist: string;
 };
 
-const wordlistPresets: WordlistPreset[] = [
-	{name: 'F1K', wordlist: en1000.join(' ')},
-	{name: '1KL', wordlist: en1000bylength.join(' ')},
-	{name: 'DBL', wordlist: endbl.join(' ')},
-	{name: 'Roll', wordlist: rickroll.join(' ')},
-];
+const getWordlistPresets = (language: 'en' | 'ru'): WordlistPreset[] => {
+	if (language === 'ru') {
+		return [
+			{name: 'R1K', wordlist: ru1000.join(' ')},
+		];
+	}
+
+	return [
+		{name: 'F1K', wordlist: en1000.join(' ')},
+		{name: '1KL', wordlist: en1000bylength.join(' ')},
+		{name: 'DBL', wordlist: endbl.join(' ')},
+		{name: 'Roll', wordlist: rickroll.join(' ')},
+	];
+};
 
 const WordlistMenu = ({onClose: handleOnClose}: WordlistMenuProperties): React.ReactElement => {
 	const [state, dispatch] = useAppState();
-	const [wordlistValue, setWordlistValue] = useState((state.customWordlist ?? en1000).join(' '));
+	const t = useTranslations();
+	const defaultWordlist = state.language === 'ru' ? ru1000 : en1000;
+	const wordlistPresets = getWordlistPresets(state.language);
+	const [wordlistValue, setWordlistValue] = useState((state.customWordlist ?? defaultWordlist).join(' '));
 	const [isSaveEnabled, setIsSaveEnabled] = useState(false);
 
 	const handleWordlistChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>): void => {
@@ -50,14 +63,14 @@ const WordlistMenu = ({onClose: handleOnClose}: WordlistMenuProperties): React.R
 	return (
 		<div className="fixed flex items-center justify-center inset-0 w-full h-full bg-neutral-100 dark:bg-neutral-900 bg-opacity-80 backdrop-blur-md z-50">
 			<div className="mx-auto w-full max-w-xl">
-				<h2 className="text-neutral-900 dark:text-neutral-100 uppercase text-4xl font-bold">Wordlist</h2>
+				<h2 className="text-neutral-900 dark:text-neutral-100 uppercase text-4xl font-bold">{t.wordlistMenu.title}</h2>
 				<div className="mt-6 flex flex-col">
-					<p className="text-neutral-900 dark:text-neutral-100 uppercase text-xs">Presets</p>
+					<p className="text-neutral-900 dark:text-neutral-100 uppercase text-xs">{t.wordlistMenu.presets}</p>
 					<div className="mt-4 flex flex-wrap items-center gap-4">
 						{wordlistPresets.map(({name, wordlist}) => (
 							<MenuButton
 								key={name}
-								label="Words"
+								label={t.menu.words}
 								value={name}
 								theme="green"
 								enabled={wordlist === wordlistValue}
@@ -67,7 +80,7 @@ const WordlistMenu = ({onClose: handleOnClose}: WordlistMenuProperties): React.R
 					</div>
 				</div>
 				<div className="mt-8 flex flex-col">
-					<p className="text-neutral-900 dark:text-neutral-100 uppercase text-xs">Custom Wordlist (a-z, space or comma separated)</p>
+					<p className="text-neutral-900 dark:text-neutral-100 uppercase text-xs">{t.wordlistMenu.customWordlist}</p>
 					<textarea
 						className="mt-4 w-full px-4 py-4 text-neutral-900 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-900 border-2 border-neutral-400 dark:border-neutral-700 rounded-md resize-none"
 						value={wordlistValue}
@@ -77,7 +90,7 @@ const WordlistMenu = ({onClose: handleOnClose}: WordlistMenuProperties): React.R
 				</div>
 				<div className="mt-4 flex flex-col">
 					{isSaveEnabled && (
-						<span className="text-yellow-700 dark:text-yellow-500 font-bold text-center">Warning: changing wordlists will reset your progress.</span>
+						<span className="text-yellow-700 dark:text-yellow-500 font-bold text-center">{t.wordlistMenu.warning}</span>
 					)}
 					<button
 						className="mt-2 w-full px-4 py-2 text-neutral-900 dark:text-neutral-200 bg-neutral-300 dark:bg-neutral-800 enabled:hover:bg-neutral-200 dark:enabled:hover:bg-neutral-700 border-2 border-neutral-400 dark:border-neutral-700 rounded-md disabled:opacity-50 disabled:cursor-not-allowed"
@@ -85,14 +98,14 @@ const WordlistMenu = ({onClose: handleOnClose}: WordlistMenuProperties): React.R
 						disabled={!isSaveEnabled}
 						onClick={handleWordlistSave}
 					>
-						Save &amp; close
+						{t.wordlistMenu.save}
 					</button>
 					<button
 						className="mt-2 w-full px-4 py-2 text-neutral-900 dark:text-neutral-200 underline underline-offset-4"
 						type="button"
 						onClick={handleOnClose}
 					>
-						Cancel
+						{t.wordlistMenu.cancel}
 					</button>
 				</div>
 			</div>

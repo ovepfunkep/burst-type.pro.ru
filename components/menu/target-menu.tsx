@@ -1,5 +1,6 @@
 import type {Theme} from '../menu-button';
 import MenuButton from '../menu-button';
+import {useTranslations} from '@app/hooks/use-translations';
 
 type TargetMenuProperties = {
 	title: string;
@@ -15,6 +16,7 @@ type TargetMenuProperties = {
 const TargetMenu = ({
 	title, onClose: handleOnClose, presetValues, onTargetChange: handleTargetChange, currentValue, maxValue, label, theme,
 }: TargetMenuProperties): React.ReactElement => {
+	const t = useTranslations();
 	const handleManualTargetChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
 		const value = Number.parseInt(event.target.value, 10);
 
@@ -30,7 +32,7 @@ const TargetMenu = ({
 			<div className="mx-auto w-full max-w-sm">
 				<h2 className="text-neutral-900 dark:text-neutral-100 uppercase text-4xl font-bold">{title}</h2>
 				<div className="mt-6 flex flex-col">
-					<p className="text-neutral-900 dark:text-neutral-100 uppercase text-xs">Presets</p>
+					<p className="text-neutral-900 dark:text-neutral-100 uppercase text-xs">{t.targetMenu.presets}</p>
 					<div className="mt-4 flex flex-wrap items-center gap-4">
 						{presetValues.map((value) => (
 							<MenuButton
@@ -45,7 +47,7 @@ const TargetMenu = ({
 					</div>
 				</div>
 				<div className="mt-8 flex flex-col">
-					<p className="text-neutral-900 dark:text-neutral-100 uppercase text-xs">{`Custom value (1-${maxValue})`}</p>
+					<p className="text-neutral-900 dark:text-neutral-100 uppercase text-xs">{`${t.targetMenu.customValue} (1-${maxValue})`}</p>
 					<input
 						className="mt-4 w-full px-4 py-4 text-neutral-900 dark:text-neutral-200 bg-neutral-100 dark:bg-neutral-900 border-2 border-neutral-400 dark:border-neutral-700 rounded-md"
 						type="number"
@@ -56,7 +58,7 @@ const TargetMenu = ({
 					/>
 				</div>
 				<div className="mt-4 flex flex-col">
-					<button className="w-full px-4 py-2 text-neutral-900 dark:text-neutral-200 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 border-2 border-neutral-400 dark:border-neutral-700 rounded-md" type="button" onClick={handleOnClose}>Close</button>
+					<button className="w-full px-4 py-2 text-neutral-900 dark:text-neutral-200 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 border-2 border-neutral-400 dark:border-neutral-700 rounded-md" type="button" onClick={handleOnClose}>{t.targetMenu.close}</button>
 				</div>
 			</div>
 		</div>

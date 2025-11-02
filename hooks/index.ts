@@ -3,3 +3,4 @@ export {default as useLastSaved} from './use-last-saved';
 export {default as useSaveState} from './use-save-state';
 export {default as useConfetti} from './use-confetti';
 export {default as useSound} from './use-sound';
+export {useTranslations} from './use-translations';

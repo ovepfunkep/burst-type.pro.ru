@@ -2,6 +2,10 @@
 /* eslint-disable unicorn/prefer-module */
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	output: 'export',
+	images: {
+		unoptimized: true,
+	},
 	async redirects() {
 		return [
 			{

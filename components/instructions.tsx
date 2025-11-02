@@ -2,9 +2,11 @@
 
 import {useAppState} from '@app/config/state';
 import {useCallback} from 'react';
+import {useTranslations} from '@app/hooks/use-translations';
 
 const Instructions = (): React.ReactElement | undefined => {
 	const [state, dispatch] = useAppState();
+	const t = useTranslations();
 
 	const handleToggleInstructions = useCallback((): void => {
 		dispatch({type: 'TOGGLE_INSTRUCTIONS'});
@@ -26,46 +28,18 @@ const Instructions = (): React.ReactElement | undefined => {
 					<span className="text-white">Type</span>
 				</h1>
 				<p className="mt-16 text-neutral-200 text-xl max-w-3xl mx-auto">
-					Instructions
+					{t.instructions.title}
 				</p>
 				<p className="mt-8 text-neutral-400 max-w-3xl mx-auto">
-					<span>Set your desired min</span>
-					{' '}
-					<span className="text-green-400 font-bold">WPM</span>
-					{' '}
-					<span>and</span>
-					{' '}
-					<span className="text-sky-400 font-bold">streak</span>
-					{' '}
-					<span>count, then type the word you see on the screen. If you complete the word with no mistakes (and at or above your min WPM setting), your streak will increase; otherwise, your streak will reset.</span>
+					{t.instructions.instruction1}
 				</p>
 				<p className="mt-4 text-neutral-400 max-w-3xl mx-auto">
-					<span>Pressing the</span>
-					{' '}
-					<span className="bg-neutral-700 text-neutral-200 tracking-wider px-2 py-0.5 rounded-md">spacebar</span>
-					{' '}
-					<span>at the end of a word is required to complete it. You can immediately start typing the word again once it has succeeded or failed.</span>
+					{t.instructions.instruction2}
 				</p>
 				<p className="mt-4 text-neutral-400 max-w-3xl mx-auto">
-					<span>You can use the</span>
-					{' '}
-					<span className="bg-neutral-700 text-neutral-200 tracking-wider px-2 py-0.5 rounded-md">left/down</span>
-					{' '}
-					<span>or</span>
-					{' '}
-					<span className="bg-neutral-700 text-neutral-200 tracking-wider px-2 py-0.5 rounded-md">right/up</span>
-					{' '}
-					<span>arrow keys to move backwards and forwards through your discovered words. You can jump back to the start or your latest discovered word using the</span>
-					{' '}
-					<span className="bg-neutral-700 text-neutral-200 tracking-wider px-2 py-0.5 rounded-md">home</span>
-					{' '}
-					<span>or</span>
-					{' '}
-					<span className="bg-neutral-700 text-neutral-200 tracking-wider px-2 py-0.5 rounded-md">end</span>
-					{' '}
-					<span>keys.</span>
+					{t.instructions.instruction3}
 				</p>
-				<button className="mt-10 bg-green-600 hover:bg-green-500 text-black font-bold px-5 py-3 rounded-md" type="button" onClick={handleToggleInstructions}>Get Started!</button>
+				<button className="mt-10 bg-green-600 hover:bg-green-500 text-black font-bold px-5 py-3 rounded-md" type="button" onClick={handleToggleInstructions}>{t.instructions.getStarted}</button>
 			</div>
 		</div>
 	);

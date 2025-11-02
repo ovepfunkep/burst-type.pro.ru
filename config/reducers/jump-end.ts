@@ -1,5 +1,4 @@
-import {createWord, type State} from '../state';
-import en1000 from '../../wordlists/en1000.json';
+import {createWord, getWordlist, type State} from '../state';
 
 type JumpEndAction = {
 	type: 'JUMP_END';
@@ -14,10 +13,12 @@ const jumpEnd = (state: State): State => {
 		return state;
 	}
 
+	const wordlist = getWordlist(state);
+
 	return {
 		...state,
 		level: state.highestLevel,
-		word: createWord(state.customWordlist ?? en1000, state.highestLevel),
+		word: createWord(wordlist, state.highestLevel),
 		buffer: '',
 		focused: true,
 		finished: false,

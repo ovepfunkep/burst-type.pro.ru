@@ -1,5 +1,4 @@
-import {createWord, type State} from '../state';
-import en1000 from '../../wordlists/en1000.json';
+import {createWord, getWordlist, type State} from '../state';
 
 type JumpBackwardsAction = {
 	type: 'JUMP_BACKWARDS';
@@ -15,11 +14,12 @@ const jumpBackwards = (state: State): State => {
 	}
 
 	const previousLevel = Math.max(0, state.level - 1);
+	const wordlist = getWordlist(state);
 
 	return {
 		...state,
 		level: previousLevel,
-		word: createWord(state.customWordlist ?? en1000, previousLevel),
+		word: createWord(wordlist, previousLevel),
 		buffer: '',
 		focused: true,
 		finished: false,

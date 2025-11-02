@@ -8,6 +8,7 @@ export {default as resetState, type ResetStateAction} from './reset-state';
 export {default as saveState, type SaveStateAction} from './save-state';
 export {default as setBuffer, type SetBufferAction} from './set-buffer';
 export {default as setFocus, type SetFocusAction} from './set-focus';
+export {default as setLanguage, type SetLanguageAction} from './set-language';
 export {default as setSFXConfetti, type SetSFXConfettiAction} from './set-sfx-confetti';
 export {default as setSFXSound, type SetSFXSoundAction} from './set-sfx-sound';
 export {default as setTargetStreak, type SetTargetStreakAction} from './set-target-streak';

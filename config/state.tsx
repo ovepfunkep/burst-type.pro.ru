@@ -4,6 +4,13 @@ import {createContext, useContext, useReducer} from 'react';
 import * as RF from './reducers';
 import type * as RT from './reducers';
 import en1000 from '../wordlists/en1000.json';
+import ru1000 from '../wordlists/ru1000.json';
+import {defaultLanguage, type Language} from '../lib/i18n';
+
+const wordlists: Record<Language, string[]> = {
+	en: en1000,
+	ru: ru1000,
+};
 
 type Event =
 	| 'disableSFXConfetti'
@@ -48,6 +55,7 @@ type State = {
 	showCredits: boolean;
 	lastWPM?: number;
 	darkMode: boolean;
+	language: Language;
 	customWordlist?: string[];
 	lastEvent?: Event;
 	lastEventTime?: number;
@@ -75,6 +83,7 @@ type Action =
 	| RT.SaveStateAction
 	| RT.SetBufferAction
 	| RT.SetFocusAction
+	| RT.SetLanguageAction
 	| RT.SetSFXConfettiAction
 	| RT.SetSFXSoundAction
 	| RT.SetTargetStreakAction
@@ -97,6 +106,8 @@ const createWord = (list: string[], index: number): Word => ({
 	streak: 0,
 });
 
+export const getWordlist = (state: State): string[] => state.customWordlist ?? wordlists[state.language];
+
 const defaultLevel = 0;
 const defaultTargetWPM = 90;
 const defaultTargetStreak = 5;
@@ -106,7 +117,7 @@ const streakOptions = [1, 3, 5, 10, 25];
 
 const initialState: State = {
 	focused: true,
-	word: createWord(en1000, defaultLevel),
+	word: createWord(wordlists[defaultLanguage], defaultLevel),
 	level: defaultLevel,
 	highestLevel: defaultLevel,
 	buffer: '',
@@ -116,6 +127,7 @@ const initialState: State = {
 	showInstructions: true,
 	showCredits: false,
 	darkMode: true,
+	language: defaultLanguage,
 	capsDetected: false,
 	enableSFXConfetti: true,
 	enableSFXSound: true,
@@ -142,6 +154,7 @@ const reducer = (state: State, action: Action): State => {
 		case 'SET_TARGET_WPM': { return RF.setTargetWPM(state, action); }
 		case 'SET_WORDLIST': { return RF.setWordlist(state, action); }
 		case 'SET_BUFFER': { return RF.setBuffer(state, action); }
+		case 'SET_LANGUAGE': { return RF.setLanguage(state, action); }
 		case 'HANDLE_CANCEL': { return RF.handleCancel(state, action); }
 		case 'JUMP_FORWARDS': { return RF.jumpForwards(state); }
 		case 'JUMP_BACKWARDS': { return RF.jumpBackwards(state); }

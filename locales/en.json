@@ -1,0 +1,70 @@
+{
+	"menu": {
+		"wpm": "WPM",
+		"streak": "Streak",
+		"words": "Words",
+		"sfx": "SFX",
+		"theme": "Theme",
+		"save": "Save",
+		"reset": "Reset",
+		"language": "Lang",
+		"options": "options"
+	},
+	"wordlistMenu": {
+		"title": "Wordlist",
+		"presets": "Presets",
+		"customWordlist": "Custom Wordlist (a-z, space or comma separated)",
+		"warning": "Warning: changing wordlists will reset your progress.",
+		"save": "Save & close",
+		"cancel": "Cancel"
+	},
+	"targetMenu": {
+		"presets": "Presets",
+		"customValue": "Custom value",
+		"close": "Close"
+	},
+	"sfxMenu": {
+		"title": "Special Effects",
+		"confetti": "Confetti (streak completion & game over)",
+		"sounds": "Sounds (typing, errors, & streaks)",
+		"conf": "Conf",
+		"sound": "Sound",
+		"on": "ON",
+		"off": "OFF",
+		"close": "Close"
+	},
+	"instructions": {
+		"title": "Instructions",
+		"instruction1": "Set your desired min WPM and streak count, then type the word you see on the screen. If you complete the word with no mistakes (and at or above your min WPM setting), your streak will increase; otherwise, your streak will reset.",
+		"instruction2": "Pressing the spacebar at the end of a word is required to complete it. You can immediately start typing the word again once it has succeeded or failed.",
+		"instruction3": "You can use the left/down or right/up arrow keys to move backwards and forwards through your discovered words. You can jump back to the start or your latest discovered word using the home or end keys.",
+		"getStarted": "Get Started!"
+	},
+	"finished": {
+		"title": "Congrats!",
+		"message": "You have completed the entire word list.",
+		"continue": "Use your arrow keys to move through the wordlist and continue practicing."
+	},
+	"menuActions": {
+		"resetConfirm": "Are you sure you want to reset your progress?",
+		"saveSuccess": "Your progress and settings have been saved!"
+	},
+	"footer": {
+		"credits": "Credits",
+		"github": "GitHub",
+		"license": "License",
+		"issues": "Issues",
+		"version": "Version"
+	},
+	"credits": {
+		"title": "Credits",
+		"description1": "BurstType was initially designed and built by Triso to learn the Colemak keyboard layout while building burst speed and muscle memory.",
+		"description2": "It has since evolved into a general-layout type-training app (still focused on building burst speed) with the options for users to set custom targets and wordlists. This app is open-source, so feel free to propose or implement new features or fixes.",
+		"contributors": "Thank you to the following people for their help in making this app even better (all GitHub contributors):",
+		"loading": "Loading...",
+		"close": "Close"
+	},
+	"experimental": {
+		"message": "You are on an experimental build, view the latest stable version at"
+	}
+}

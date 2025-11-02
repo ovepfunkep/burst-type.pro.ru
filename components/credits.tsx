@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
 import {useAppState} from '@app/config/state';
+import {useTranslations} from '@app/hooks/use-translations';
 
 type Contributor = {
 	id: number;
@@ -15,6 +16,7 @@ const blacklist = new Set(['r3oath']);
 
 const Credits = (): React.ReactElement | undefined => {
 	const [state, dispatch] = useAppState();
+	const t = useTranslations();
 	const [contributors, setContributors] = useState<Contributor[]>([]);
 
 	const handleToggleCredits = useCallback((): void => {
@@ -39,7 +41,7 @@ const Credits = (): React.ReactElement | undefined => {
 	return (
 		<div className="fixed flex items-center justify-center inset-0 w-full h-full bg-neutral-100 dark:bg-neutral-900 bg-opacity-80 backdrop-blur-md z-50">
 			<div className="mx-auto w-full max-w-2xl">
-				<h2 className="text-neutral-900 dark:text-neutral-100 uppercase text-4xl font-bold">Credits</h2>
+				<h2 className="text-neutral-900 dark:text-neutral-100 uppercase text-4xl font-bold">{t.credits.title}</h2>
 				<div className="mt-6 flex flex-col">
 					<p className="text-neutral-900 dark:text-neutral-100">
 						BurstType was initially designed and built by
@@ -62,11 +64,11 @@ const Credits = (): React.ReactElement | undefined => {
 					</p>
 					<hr className="my-6 border-neutral-300 dark:border-neutral-700"/>
 					<p className="text-neutral-900 dark:text-neutral-100">
-						Thank you to the following people for their help in making this app even better (all GitHub contributors):
+						{t.credits.contributors}
 					</p>
 					{contributors.length === 0 && (
 						<p className="mt-4 text-neutral-500 dark:text-neutral-500">
-							Loading...
+							{t.credits.loading}
 						</p>
 					)}
 					{contributors.length > 0 && (
@@ -84,7 +86,7 @@ const Credits = (): React.ReactElement | undefined => {
 					)}
 				</div>
 				<div className="mt-8 flex flex-col">
-					<button className="w-full px-4 py-2 text-neutral-900 dark:text-neutral-200 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 border-2 border-neutral-400 dark:border-neutral-700 rounded-md" type="button" onClick={handleToggleCredits}>Close</button>
+					<button className="w-full px-4 py-2 text-neutral-900 dark:text-neutral-200 bg-neutral-300 dark:bg-neutral-800 hover:bg-neutral-200 dark:hover:bg-neutral-700 border-2 border-neutral-400 dark:border-neutral-700 rounded-md" type="button" onClick={handleToggleCredits}>{t.credits.close}</button>
 				</div>
 			</div>
 		</div>
